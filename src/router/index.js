@@ -7,6 +7,8 @@ import {
 } from 'vue-router'
 import routes from './routes'
 
+import '@quasar/extras/mdi-v6/mdi-v6.css'
+
 /*
  * If not building with SSR mode, you can
  * directly export the Router instantiation;

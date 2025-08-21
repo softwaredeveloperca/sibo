@@ -1,23 +1,34 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
-      <q-toolbar>
-        <q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" />
+    <!-- Header -->
+    <q-header elevated class="bg-white border-b border-gray-200">
+      <q-toolbar class="justify-between items-center">
+        <!-- Left Spacer -->
+        <div style="width: 120px"></div>
 
-        <q-toolbar-title> Quasar App </q-toolbar-title>
+        <!-- Logo (always centered) -->
+        <img
+          src="/logo.png"
+          alt="Sibo Mealplan Logo"
+          style="height: 100px; width: auto; object-fit: contain"
+        />
 
-        <div>Quasar v{{ $q.version }}</div>
+        <!-- Dropdown (only shows after a selection is made) -->
+        <div style="width: 120px; text-align: right">
+          <q-select
+            v-if="selectedType"
+            v-model="selectedType"
+            :options="mealTypes"
+            dense
+            outlined
+            options-dense
+            style="min-width: 120px"
+          />
+        </div>
       </q-toolbar>
     </q-header>
 
-    <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
-      <q-list>
-        <q-item-label header> Essential Links </q-item-label>
-
-        <EssentialLink v-for="link in linksList" :key="link.title" v-bind="link" />
-      </q-list>
-    </q-drawer>
-
+    <!-- Main Content -->
     <q-page-container>
       <router-view />
     </q-page-container>
@@ -25,57 +36,19 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import EssentialLink from 'components/EssentialLink.vue'
+import { ref, provide } from 'vue'
 
-const linksList = [
-  {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev',
-  },
-  {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework',
-  },
-  {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev',
-  },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev',
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev',
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev',
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev',
-  },
+/**
+ * Provide selectedType so child pages can update it
+ */
+const selectedType = ref(null)
+provide('selectedType', selectedType)
+
+// Meal type options for dropdown
+const mealTypes = [
+  'Hydrogen-Dominant SIBO',
+  'Methane-Dominant SIBO',
+  'Hydrogen Sulfide-Dominant SIBO',
+  'Mixed-Type SIBO',
 ]
-
-const leftDrawerOpen = ref(false)
-
-function toggleLeftDrawer() {
-  leftDrawerOpen.value = !leftDrawerOpen.value
-}
 </script>
