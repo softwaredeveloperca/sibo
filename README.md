@@ -28,7 +28,6 @@
 
 SIBO Mealplan is a web application designed to simplify meal planning for people suffering from **Small Intestinal Bacterial Overgrowth (SIBO)**. It produces customized meal plans and recipes based on a user’s specific SIBO type (hydrogen, methane, mixed, or hydrogen sulfide), aimed at reducing symptoms and supporting gut healing. ([Devpost Project](https://devpost.com/software/sibo-mealplan))
 
-The project was built during the **Bay2BayHacks 2025** hackathon.
 
 ---
 
